@@ -49,6 +49,6 @@ resource "aws_security_group_rule" "cluster_sg" {
   from_port         = 0
   to_port           = 0
   protocol          = "-1"
-  cidr_blocks       = ["${var.vpc_cidr}"]
+  cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_eks_cluster.eks-cluster.vpc_config[0].cluster_security_group_id
 }
