@@ -1,11 +1,11 @@
 variable "region" {
-    default = "us-east-1"
+    default = "us-west-2"
 }
 variable "customer" {
     default = "dvs"
 }
 variable "ec2_ssh_key" {
-    default = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCxoqfP6la1XfdLlVtIwhN36i8FzMTh16d7EJZ/ivfDcAzjuWJoXYR7gTSrTGQ5oJuQ/eIm4LmRY+droxzNf7/BnO/6UtEWigNPQFKVNGvefkucpUz2gL0q56rL20eIKVnXmKm5e5qg2U8DIqx/bULxGaFJoDSP288Dd/6KUGkXXgQLlUHRChJbMJVE+r6lqK/mOD4CC8gvRPXwmvRRjLRcChxhLQXsCKOR4CTV4Eh+iM+PDo/wFnzjFcRqBvyXf/0i0+bAyCOpISxTQRecE2ieCsbA09vNOkukwrF1mJZ7L149K4cT8CMoCsy0QCgBLLSDgvptV6Wr0hBPS9T3eeil imported-openssh-key"
+    default = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/i0vmvSWNyeZCMTMzTDFhoFM0XKEPXGLeTKr37Jb5Xp03nMDUNwVGhsUdXL2TdK4ek7/v69ImOgVZKe/ucpdWNT+2KoBH7pLhTg8A6OuN2b+9ZqQVxb2JfdclgRiGwg/r94G2+WXXnRWr5/l2x9C82OrgGwcOUNXGNcStm3WG9N0Y3sTJUwPr3ibANrWFCiuWdYyqT981N+/nWHCMReNnddvS+VxlMZ6A3DuzHWZw7qmB6PCeXchoiSsBQ8aSpXKF+zr32hRuaViYLL7kku8kZJGp+LwcgtBwg3o2gf8WptFP31BLNG9k5gnzc8A2wmt3G3SCO/40jG3B4EOqKZov SHAAN-MCDAIB1"
 }
 variable "env" {
     default = "dev"
@@ -25,7 +25,7 @@ variable "private_subnets" {
 
 variable "availability_zones" {
     type    = list
-    default = ["us-east-1a","us-east-1b"]    
+    default = ["us-west-2a","us-west-2b"]    
 }
 
 variable "keypair" {
@@ -40,7 +40,7 @@ variable "public_nodes_capacity" {
     default = "ON_DEMAND"
 }
 variable "public_nodes_type" {
-    default = "t3.small"
+    default = "t3.micro"
 }
 variable "public_nodes_min" {
     default = 1
@@ -65,7 +65,7 @@ variable "private_nodes_capacity" {
 }
 
 variable "private_nodes_type" {
-    default = "t3.small"
+    default = "t3.micro"
 }
 variable "private_nodes_min" {
     default = 1
@@ -85,3 +85,6 @@ variable "private_nodes_labels" {
     }
 }
 
+variable "max_no_of_pods" {
+  default = 40
+}

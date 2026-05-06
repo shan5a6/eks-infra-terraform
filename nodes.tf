@@ -33,18 +33,20 @@ resource "aws_iam_role_policy_attachment" "nodes-AmazonEC2ContainerRegistryReadO
   role       = aws_iam_role.nodes.name
 }
 
+
 resource "aws_eks_node_group" "private-nodes" {
   cluster_name    = aws_eks_cluster.eks-cluster.name
   node_group_name = "private-nodes"
   node_role_arn   = aws_iam_role.nodes.arn
-  remote_access {
-    ec2_ssh_key = "${var.keypair}"
-  }  
 
   subnet_ids = aws_subnet.private_subnets.*.id
 
-  capacity_type  = "${var.private_nodes_capacity}"
-  instance_types = ["${var.private_nodes_type}"]
+  capacity_type = var.private_nodes_capacity
+
+  launch_template {
+    id      = aws_launch_template.private_nodes.id
+    version = aws_launch_template.private_nodes.latest_version
+  }
 
   scaling_config {
     desired_size = var.private_nodes_des
@@ -65,19 +67,19 @@ resource "aws_eks_node_group" "private-nodes" {
   ]
 }
 
-
 resource "aws_eks_node_group" "public-nodes" {
   cluster_name    = aws_eks_cluster.eks-cluster.name
   node_group_name = "public-nodes"
   node_role_arn   = aws_iam_role.nodes.arn
-  remote_access {
-    ec2_ssh_key = "${var.keypair}"
-  }  
 
   subnet_ids = aws_subnet.public_subnets.*.id
 
-  capacity_type  = "${var.public_nodes_capacity}"
-  instance_types = ["${var.public_nodes_type}"]
+  capacity_type = var.public_nodes_capacity
+
+  launch_template {
+    id      = aws_launch_template.public_nodes.id
+    version = aws_launch_template.public_nodes.latest_version
+  }
 
   scaling_config {
     desired_size = var.public_nodes_des
@@ -91,10 +93,11 @@ resource "aws_eks_node_group" "public-nodes" {
 
   labels = var.public_nodes_labels
 
-
   depends_on = [
     aws_iam_role_policy_attachment.nodes-AmazonEKSWorkerNodePolicy,
     aws_iam_role_policy_attachment.nodes-AmazonEKS_CNI_Policy,
     aws_iam_role_policy_attachment.nodes-AmazonEC2ContainerRegistryReadOnly,
   ]
 }
+
+
