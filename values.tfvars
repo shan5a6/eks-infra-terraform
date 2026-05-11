@@ -1,0 +1,5 @@
+region="us-west-2"
+customer="dvsgenai"
+env="dev"
+private_nodes_type="t3.micro"
+public_nodes_type="t3.micro"
